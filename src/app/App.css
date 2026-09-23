@@ -1,0 +1,183 @@
+:root {
+  color: #edf2f5;
+  background: #11161c;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+
+button, input { font: inherit; }
+
+button { cursor: pointer; }
+
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #8bd0ee;
+  outline-offset: 3px;
+}
+
+.app-shell { min-height: 100vh; padding: 28px clamp(20px, 4vw, 64px) 48px; }
+
+.app-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1420px;
+  margin: 0 auto 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #35414c;
+}
+
+.product-name, .eyebrow {
+  margin: 0 0 6px;
+  color: #8bd0ee;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1, h2, p { margin-top: 0; }
+
+h1 { margin-bottom: 0; font-size: clamp(1.35rem, 2.3vw, 1.85rem); font-weight: 600; letter-spacing: -0.025em; }
+
+h2 { margin-bottom: 0; font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+
+.header-actions, .rotation-actions, .stepper, .size-options { display: flex; align-items: center; gap: 8px; }
+
+.button, .rotation-actions button, .size-options button, .stepper button {
+  min-height: 40px;
+  border: 1px solid #475563;
+  border-radius: 7px;
+  background: #202933;
+  color: #edf2f5;
+  padding: 0 13px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.button:hover, .rotation-actions button:hover, .size-options button:hover, .stepper button:hover { border-color: #6f8292; background: #293541; }
+
+.button--primary { border-color: #8bd0ee; background: #8bd0ee; color: #0b151c; }
+.button--primary:hover { background: #b0e2f5; border-color: #b0e2f5; }
+.button:disabled { cursor: not-allowed; opacity: 0.5; }
+
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; max-width: 1420px; margin: 0 auto; align-items: start; }
+
+.editor-panel, .controls-panel { border: 1px solid #35414c; background: #182029; }
+.editor-panel { min-width: 0; padding: 20px; }
+.controls-panel { padding: 18px; }
+
+.editor-panel__heading, .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.editor-panel__heading { margin-bottom: 18px; }
+.frame-ratio, .section-heading span, .section-heading output { color: #aebdc8; font-size: 0.78rem; }
+
+.viewport-wrap { min-width: 360px; max-width: 100%; margin: 0 auto; resize: horizontal; overflow: hidden; }
+
+.editor-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  background-color: #d8dfe2;
+  background-image: conic-gradient(#c5cdd1 25%, transparent 0 50%, #c5cdd1 0 75%, transparent 0);
+  background-size: 24px 24px;
+}
+
+.editor-viewport.is-dragging { cursor: grabbing; }
+
+.editor-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: none;
+  user-select: none;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.crop-frame {
+  position: absolute;
+  z-index: 1;
+  border: 2px solid #f6fbfd;
+  box-shadow: 0 0 0 999px rgba(6, 10, 13, 0.55);
+  pointer-events: none;
+}
+
+.crop-frame::before, .crop-frame::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-color: #f6fbfd;
+  border-style: solid;
+}
+.crop-frame::before { top: -4px; left: -4px; border-width: 3px 0 0 3px; }
+.crop-frame::after { right: -4px; bottom: -4px; border-width: 0 3px 3px 0; }
+
+.crop-frame__line { position: absolute; opacity: 0.42; background: rgba(246, 251, 253, 0.8); }
+.crop-frame__line--vertical { width: 1px; height: 100%; left: 50%; }
+.crop-frame__line--horizontal { height: 1px; width: 100%; top: 50%; }
+
+.editor-viewport__instruction {
+  position: absolute;
+  z-index: 2;
+  left: 14px;
+  bottom: 12px;
+  color: #ecf2f6;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px #111;
+  pointer-events: none;
+}
+
+.image-status { margin: 12px 0 0; color: #aebdc8; font-size: 0.86rem; }
+.image-status--error { color: #ffb4a8; }
+
+.editor-controls { display: grid; gap: 18px; }
+.control-group { padding-bottom: 18px; border-bottom: 1px solid #35414c; }
+.control-group .section-heading { margin-bottom: 11px; }
+.stepper input { width: 100%; accent-color: #8bd0ee; }
+.stepper button { width: 40px; padding: 0; font-size: 1.1rem; }
+.rotation-actions button { flex: 1; }
+.size-options { flex-wrap: wrap; }
+.size-options button { flex: 1; min-width: 80px; }
+.size-options .is-selected { border-color: #8bd0ee; background: #223946; color: #dff5ff; }
+
+.position-readout { padding: 2px 0; }
+.position-readout h2 { margin-bottom: 10px; }
+.position-readout dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+.position-readout dl div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid #2d3945; padding-bottom: 7px; }
+.position-readout dt, .position-readout dd { margin: 0; color: #aebdc8; font-size: 0.78rem; }
+.position-readout dd { color: #edf2f5; }
+
+.preview-card { margin-top: 22px; padding-top: 18px; border-top: 1px solid #35414c; }
+.preview-card .section-heading { margin-bottom: 12px; }
+.preview-empty { margin: 0 0 12px; color: #aebdc8; font-size: 0.82rem; line-height: 1.45; }
+.preview-canvas { display: block; width: 100%; height: auto; border: 1px solid #475563; background: #111820; }
+.preview-canvas.is-empty { display: none; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+@media (max-width: 920px) {
+  .workspace { grid-template-columns: 1fr; }
+  .controls-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr); gap: 20px; }
+  .preview-card { margin-top: 0; padding-top: 0; border-top: 0; }
+}
+
+@media (max-width: 620px) {
+  .app-shell { padding: 20px 14px 34px; }
+  .app-header { align-items: start; flex-direction: column; gap: 16px; }
+  .header-actions { width: 100%; }
+  .header-actions .button { flex: 1; min-height: 44px; }
+  .editor-panel, .controls-panel { padding: 14px; }
+  .controls-panel { grid-template-columns: 1fr; }
+  .viewport-wrap { min-width: 0; width: 100% !important; resize: none; }
+  .editor-panel__heading { align-items: start; }
+}

@@ -21,17 +21,6 @@ export function getPanLimits({
   }
 }
 
-export function getResizePanLimits({
-  source,
-  crop,
-  effectiveScale,
-}: Omit<ConstraintInput, 'rotation'>): PanLimits {
-  return {
-    x: Math.max(0, (source.width * effectiveScale - crop.width) / 2),
-    y: Math.max(0, (source.height * effectiveScale - crop.height) / 2),
-  }
-}
-
 export function clampPan(pan: Point, limits: PanLimits): Point {
   return {
     x: Math.max(-limits.x, Math.min(limits.x, pan.x)),

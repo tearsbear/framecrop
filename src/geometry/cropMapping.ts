@@ -1,5 +1,4 @@
 import { getEffectiveScale } from './fit'
-import { getRotatedBounds } from './rotation'
 import type { Point, Rect, Rotation, Size, SourceImage } from './types'
 
 type PreviewInput = {
@@ -14,9 +13,8 @@ type PreviewInput = {
   output: Size
 }
 
-function getPreviewSourceOrigin(source: SourceImage, rotation: Rotation): Point {
-  const bounds = getRotatedBounds(source, rotation)
-  return { x: bounds.width / 2, y: bounds.height / 2 }
+function getPreviewSourceOrigin(source: SourceImage): Point {
+  return { x: source.width / 2, y: source.height / 2 }
 }
 
 export function renderCropPreview({
@@ -32,7 +30,7 @@ export function renderCropPreview({
 }: PreviewInput) {
   const outputScale = output.width / crop.width
   const effectiveScale = getEffectiveScale(source, crop, rotation, zoom)
-  const origin = getPreviewSourceOrigin(source, rotation)
+  const origin = getPreviewSourceOrigin(source)
 
   context.save()
   context.setTransform(1, 0, 0, 1, 0, 0)

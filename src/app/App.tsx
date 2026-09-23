@@ -3,7 +3,7 @@ import { CropPreview } from '../components/CropPreview'
 import { EditorControls, type EditorSize } from '../components/EditorControls'
 import { EditorViewport } from '../components/EditorViewport'
 import { SAMPLE_IMAGE, SAMPLE_IMAGE_SRC } from '../data/sampleImage'
-import { clampPan, getPanLimits, getResizePanLimits } from '../geometry/constraints'
+import { clampPan, getPanLimits } from '../geometry/constraints'
 import { clampZoom, getCropFrame, getEffectiveScale } from '../geometry/fit'
 import { normalizeRotation } from '../geometry/rotation'
 import type { EditorState, Size } from '../geometry/types'
@@ -54,14 +54,12 @@ export function App() {
 
     setEditor((current) => {
       const effectiveScale = getEffectiveScale(SAMPLE_IMAGE, crop, current.rotation, current.zoom)
-      const limits = current.rotation === 90 || current.rotation === 270
-        ? getResizePanLimits({ source: SAMPLE_IMAGE, crop, effectiveScale })
-        : getPanLimits({
-            source: SAMPLE_IMAGE,
-            crop,
-            rotation: current.rotation,
-            effectiveScale,
-          })
+      const limits = getPanLimits({
+        source: SAMPLE_IMAGE,
+        crop,
+        rotation: current.rotation,
+        effectiveScale,
+      })
 
       return { ...current, pan: clampPan(current.pan, limits) }
     })
